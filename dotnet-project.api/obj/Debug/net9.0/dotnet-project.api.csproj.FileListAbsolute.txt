@@ -26,3 +26,4 @@
 /home/kk/Documents/D-Net/dotnet-project/dotnet-project.api/obj/Debug/net9.0/dotnet-project.api.pdb
 /home/kk/Documents/D-Net/dotnet-project/dotnet-project.api/obj/Debug/net9.0/dotnet-project.api.genruntimeconfig.cache
 /home/kk/Documents/D-Net/dotnet-project/dotnet-project.api/obj/Debug/net9.0/ref/dotnet-project.api.dll
+/home/kk/Documents/D-Net/dotnet-project/dotnet-project.api/obj/Debug/net9.0/dotnet-project.api.sourcelink.json

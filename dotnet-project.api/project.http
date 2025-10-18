@@ -1,4 +1,31 @@
-GET http://localhost:5048/
+
+GET http://localhost:5048/projects
 
 ###
-POST http://localhost:5048/
+http://localhost:5048/projects/4
+
+
+###
+POST http://localhost:5048/projects
+Content-Type: application/json
+
+{
+    "name": "Nokia",
+    "genre": "My Nokia Phone Best",
+    "price": 59.99,
+    "releaseDate": "1995-07-15"
+}
+
+###
+PUT http://localhost:5048/projects/4
+Content-Type: application/json
+
+{ 
+    "name": "Riad",
+    "genre": "pagol",
+    "price": 90.01,
+    "releaseDate": "1991-07-15"
+}
+
+###
+DELETE  http://localhost:5048/projects/3
