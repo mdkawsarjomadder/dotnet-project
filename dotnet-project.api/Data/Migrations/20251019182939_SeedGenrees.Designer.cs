@@ -2,17 +2,20 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dotnet_project.api.Data;
 
 #nullable disable
 
-namespace dotnet_project.api.Migrations
+namespace dotnet_project.api.Data.Migrations
 {
     [DbContext(typeof(ProjectStortContext))]
-    partial class ProjectStortContextModelSnapshot : ModelSnapshot
+    [Migration("20251019182939_SeedGenrees")]
+    partial class SeedGenrees
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.10");
@@ -30,6 +33,33 @@ namespace dotnet_project.api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Fighting"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Roleplaying"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Sports"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Racing"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Kids and family"
+                        });
                 });
 
             modelBuilder.Entity("dotnet_project.api.Entities.Project", b =>

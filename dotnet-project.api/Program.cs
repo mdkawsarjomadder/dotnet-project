@@ -11,8 +11,9 @@ Console.WriteLine($"Connection: {ConnString}");
 
 //DataBase End.!
 var app = builder.Build();
-    
+
 app.MapProjectEndPoints();
+app.MigrateDb();
 
 app.Run();
     
