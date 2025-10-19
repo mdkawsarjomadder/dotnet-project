@@ -53,7 +53,7 @@ namespace dotnet_project.api.EndPoints;
             ProjrctDto projrct = new(
                 projects.Count + 1,
                 newGame.Name,
-                newGame.Genre,
+                newGame.GenreId,
                 newGame.Price,
                 newGame.ReleaseDate);
             projects.Add(projrct);
@@ -71,7 +71,7 @@ namespace dotnet_project.api.EndPoints;
             projects[index] = new ProjrctDto(
                 id,
                 newUpdate.Name,
-                newUpdate.Genre,
+                newUpdate.GenreId,
                 newUpdate.Price,
                 newUpdate.ReleaseDate
                 );
