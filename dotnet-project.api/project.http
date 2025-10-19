@@ -1,8 +1,8 @@
 
-GET http://localhost:5048/projects
+GET http://localhost:5048/projects/3
 
 ###
-http://localhost:5048/projects/4
+http://localhost:5048/projects/2
 
 
 ###
@@ -10,10 +10,10 @@ POST http://localhost:5048/projects
 Content-Type: application/json
 
 {
-    "name": "Nokia",
-    "genre": "My Nokia Phone Best",
-    "price": 59.99,
-    "releaseDate": "1995-07-15"
+    "name": "Riad",
+    "genre": "pagol",
+    "price": 90.01,
+    "releaseDate": "1991-07-15"
 }
 
 ###
@@ -21,10 +21,10 @@ PUT http://localhost:5048/projects/4
 Content-Type: application/json
 
 { 
-    "name": "Riad",
-    "genre": "pagol",
-    "price": 90.01,
-    "releaseDate": "1991-07-15"
+    "name":"Laptop",
+    "genre":"My Best Best Latopt.!",
+    "price": 30.99,
+    "releaseDate": "1995-07-15"
 }
 
 ###

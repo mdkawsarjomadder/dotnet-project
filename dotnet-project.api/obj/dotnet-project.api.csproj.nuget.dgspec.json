@@ -1,25 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "/home/kk/Documents/D-Net/dotnet-project/dotnet-project.api/dotnet-project.api.csproj": {}
+    "/home/mm/Documents/D_Net/dotnet-project/dotnet-project.api/dotnet-project.api.csproj": {}
   },
   "projects": {
-    "/home/kk/Documents/D-Net/dotnet-project/dotnet-project.api/dotnet-project.api.csproj": {
+    "/home/mm/Documents/D_Net/dotnet-project/dotnet-project.api/dotnet-project.api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/kk/Documents/D-Net/dotnet-project/dotnet-project.api/dotnet-project.api.csproj",
+        "projectUniqueName": "/home/mm/Documents/D_Net/dotnet-project/dotnet-project.api/dotnet-project.api.csproj",
         "projectName": "dotnet-project.api",
-        "projectPath": "/home/kk/Documents/D-Net/dotnet-project/dotnet-project.api/dotnet-project.api.csproj",
-        "packagesPath": "/home/kk/.nuget/packages/",
-        "outputPath": "/home/kk/Documents/D-Net/dotnet-project/dotnet-project.api/obj/",
+        "projectPath": "/home/mm/Documents/D_Net/dotnet-project/dotnet-project.api/dotnet-project.api.csproj",
+        "packagesPath": "/home/mm/.nuget/packages/",
+        "outputPath": "/home/mm/Documents/D_Net/dotnet-project/dotnet-project.api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/kk/.nuget/NuGet/NuGet.Config"
+          "/home/mm/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "/usr/lib/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,11 +39,17 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "MinimalApis.Extensions": {
+              "target": "Package",
+              "version": "[0.11.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -62,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/9.0.111/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
