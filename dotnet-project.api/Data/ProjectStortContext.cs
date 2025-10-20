@@ -1,17 +1,3 @@
-// using System;
-// using dotnet_project.api.Entities;
-// using Microsoft.EntityFrameworkCore;
-
-// namespace dotnet_project.api.Data;
-
-
-
-// public class ProjectStortContext(DbContextOptions<ProjectStortContext> options)
-// : DbContext(options)
-// {
-//     public DbSet<Project> Projects => Set<Project>();
-//     public DbSet<Genre> Genres => Set<Genre>();
-// }
 
 using dotnet_project.api.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +11,7 @@ public class ProjectStortContext(DbContextOptions<ProjectStortContext> options) 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Genre>().HasData(
+        var unused = modelBuilder.Entity<Genre>().HasData(
          new { Id = 1, Name = "Fighting" },
          new { Id = 2, Name = "Roleplaying" },
          new { Id = 3, Name = "Sports" },

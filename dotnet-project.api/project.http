@@ -1,8 +1,8 @@
 
-GET http://localhost:5048/projects/3
+GET http://localhost:5048/projects/
 
 ###
-http://localhost:5048/projects/2
+http://localhost:5048/projects/1
 
 
 ###
@@ -10,10 +10,10 @@ POST http://localhost:5048/projects
 Content-Type: application/json
 
 {
-    "name": "Riad",
-    "genre": "pagol",
-    "price": 90.01,
-    "releaseDate": "1991-07-15"
+    "name": "Final  Fantasy XIV ",
+    "genreId": 2,
+    "price": 99.01,
+    "releaseDate": "1997-07-15"
 }
 
 ###

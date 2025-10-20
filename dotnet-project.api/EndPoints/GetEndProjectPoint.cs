@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnet_project.api.Data;
 using dotnet_project.api.Dtos;
+using dotnet_project.api.Entities;
+using dotnet_project.api.Mapping;
 
 namespace dotnet_project.api.EndPoints;
 
@@ -11,7 +14,7 @@ namespace dotnet_project.api.EndPoints;
     
         const string GetProjectEndPointName = "ProjectName";
 
-   private static readonly List<ProjrctDto> projects = [
+   private static readonly List<ProjectSummaryDto> projects = [
              new(
         1,
         "Street Fighter IT",
@@ -38,37 +41,60 @@ namespace dotnet_project.api.EndPoints;
    {
       var group = app.MapGroup("projects").WithParameterValidation();
         //GET/projects
-        group.MapGet("/",() => projects);
+        var unused7 = group.MapGet("/", () => projects);
 
         //GET/group/1
-        group.MapGet("/{id}", (int id) =>
+        var unused6 = group.MapGet("/{id}", (int id, ProjectStortContext dbContext) =>
         {
-            ProjrctDto? project = projects.Find(project => project.Id == id);
-            return project is null ? Results.NotFound() : Results.Ok(project);
+            // ProjrctDto? project = projects.Find(project => project.Id == id);
+              Project? project = dbContext.Projects.Find(id);
+            // Project? project = dbContext.Genres.Find(id);
+
+            return project is null ? Results.NotFound() : Results.Ok(project. ToprojectDetailsDto());
         }).WithName(GetProjectEndPointName);
 
         //POST/group/
-        group.MapPost("/", (CretaeProjectDto newGame) =>
+        var unused5 = group.MapPost("/", (CretaeProjectDto newGame, ProjectStortContext dbContext) =>
         {
-            ProjrctDto projrct = new(
-                projects.Count + 1,
-                newGame.Name,
-                newGame.GenreId,
-                newGame.Price,
-                newGame.ReleaseDate);
-            projects.Add(projrct);
+            Project project = newGame.ToEntity();
+            // project.Genre = dbContext.Genres.Find(newGame.GenreId);
 
-            return Results.CreatedAtRoute(GetProjectEndPointName, new { id = projrct.Id }, projrct);
+            /*            Project ppject = new()
+                        {
+                            Name = newGame.Name,
+                            Genre = dbContext.Genres.Find(newGame.GenreId),
+                            GenreId = newGame.GenreId,
+                            Price = newGame.Price,
+                            ReleaseDate = newGame.ReleaseDate
+                        };
+            */
+
+            var unused4 = dbContext.Projects.Add(project);
+            var unused3 = dbContext.SaveChanges();
+            /*  
+                    ProjrctDto projrctDto = new(
+                        ppject.Id,
+                        ppject.Name,
+                        ppject.Genre!.Name,
+                        ppject.Price,
+                        ppject.ReleaseDate
+                    );
+            */
+
+            return Results.CreatedAtRoute(
+                GetProjectEndPointName,
+                new { id = project.Id },
+                project.ToprojectDetailsDto());
         });
         //PUT/group/
-        group.MapPut("/{id}", (int id, UpdateCreateDto newUpdate) =>
+        var unused2 = group.MapPut("/{id}", (int id, UpdateCreateDto newUpdate) =>
         {
             var index = projects.FindIndex(project => project.Id == id);
             if (index == -1)
             {
                 return Results.NotFound();
             }
-            projects[index] = new ProjrctDto(
+            projects[index] = new ProjectSummaryDto(
                 id,
                 newUpdate.Name,
                 newUpdate.GenreId,
@@ -77,14 +103,14 @@ namespace dotnet_project.api.EndPoints;
                 );
             return Results.NoContent();
         });
-      //Delete/group
-      app.MapDelete("/{id}", (int id) =>
-      {
-         projects.RemoveAll(project => project.Id == id);
-         return Results.NoContent();
+        //Delete/group
+        var unused1 = group.MapDelete("/{id}", (int id) =>
+        {
+            var unused = projects.RemoveAll(project => project.Id == id);
+            return Results.NoContent();
 
-      });
-      return group;
+        });
+        return group;
 
     }
         

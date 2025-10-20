@@ -13,7 +13,7 @@ namespace dotnet_project.api.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+            var unused6 = migrationBuilder.CreateTable(
                 name: "Genres",
                 columns: table => new
                 {
@@ -23,10 +23,10 @@ namespace dotnet_project.api.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genres", x => x.Id);
+                    var unused5 = table.PrimaryKey("PK_Genres", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
+            var unused4 = migrationBuilder.CreateTable(
                 name: "Projects",
                 columns: table => new
                 {
@@ -39,8 +39,8 @@ namespace dotnet_project.api.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Projects", x => x.Id);
-                    table.ForeignKey(
+                    var unused3 = table.PrimaryKey("PK_Projects", x => x.Id);
+                    var unused2 = table.ForeignKey(
                         name: "FK_Projects_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
@@ -48,7 +48,7 @@ namespace dotnet_project.api.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
+            var unused1 = migrationBuilder.InsertData(
                 table: "Genres",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
@@ -60,7 +60,7 @@ namespace dotnet_project.api.Data.Migrations
                     { 5, "Kids and family" }
                 });
 
-            migrationBuilder.CreateIndex(
+            var unused = migrationBuilder.CreateIndex(
                 name: "IX_Projects_GenreId",
                 table: "Projects",
                 column: "GenreId");
@@ -69,10 +69,10 @@ namespace dotnet_project.api.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
+            var unused1 = migrationBuilder.DropTable(
                 name: "Projects");
 
-            migrationBuilder.DropTable(
+            var unused = migrationBuilder.DropTable(
                 name: "Genres");
         }
     }
