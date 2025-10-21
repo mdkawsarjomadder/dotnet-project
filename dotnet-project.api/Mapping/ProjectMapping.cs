@@ -8,9 +8,22 @@ public static class ProjectMapping
 {
     public static Project ToEntity(this CretaeProjectDto project)
     {
+
+        return new Project
+        {
+            Name = project.Name,
+            GenreId = project.GenreId,
+            Price = project.Price,
+            ReleaseDate = project.ReleaseDate
+        };
+
+    }
+     public static Project ToEntity(this UpdateCreateDto project, int id)
+    {
        
         return new Project
         {
+            Id = id,
             Name = project.Name,
             GenreId = project.GenreId,
             Price = project.Price,
@@ -38,5 +51,10 @@ public static class ProjectMapping
             project.Price,
             project.ReleaseDate
         );
+    }
+
+    internal static object ToEntity(int id)
+    {
+        throw new NotImplementedException();
     }
 }

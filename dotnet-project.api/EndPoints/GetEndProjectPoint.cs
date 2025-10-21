@@ -6,6 +6,7 @@ using dotnet_project.api.Data;
 using dotnet_project.api.Dtos;
 using dotnet_project.api.Entities;
 using dotnet_project.api.Mapping;
+using Microsoft.EntityFrameworkCore;
 
 namespace dotnet_project.api.EndPoints;
 
@@ -41,20 +42,24 @@ namespace dotnet_project.api.EndPoints;
    {
       var group = app.MapGroup("projects").WithParameterValidation();
         //GET/projects
-        var unused7 = group.MapGet("/", () => projects);
+        group.MapGet("/", (ProjectStortContext dbContext) =>
+           dbContext.Projects
+           .Include(project => project.Genre)
+           .Select(project => project.ToprojectSummaryDto())
+           .AsNoTracking());
 
         //GET/group/1
-        var unused6 = group.MapGet("/{id}", (int id, ProjectStortContext dbContext) =>
+        group.MapGet("/{id}", (int id, ProjectStortContext dbContext) =>
         {
             // ProjrctDto? project = projects.Find(project => project.Id == id);
-              Project? project = dbContext.Projects.Find(id);
+            Project? project = dbContext.Projects.Find(id);
             // Project? project = dbContext.Genres.Find(id);
 
-            return project is null ? Results.NotFound() : Results.Ok(project. ToprojectDetailsDto());
+            return project is null ? Results.NotFound() : Results.Ok(project.ToprojectDetailsDto());
         }).WithName(GetProjectEndPointName);
 
         //POST/group/
-        var unused5 = group.MapPost("/", (CretaeProjectDto newGame, ProjectStortContext dbContext) =>
+        group.MapPost("/", (CretaeProjectDto newGame, ProjectStortContext dbContext) =>
         {
             Project project = newGame.ToEntity();
             // project.Genre = dbContext.Genres.Find(newGame.GenreId);
@@ -87,25 +92,36 @@ namespace dotnet_project.api.EndPoints;
                 project.ToprojectDetailsDto());
         });
         //PUT/group/
-        var unused2 = group.MapPut("/{id}", (int id, UpdateCreateDto newUpdate) =>
+    group.MapPut("/{id}", (int id, UpdateCreateDto newUpdate, ProjectStortContext dbContext) =>
         {
-            var index = projects.FindIndex(project => project.Id == id);
-            if (index == -1)
+            // var index = projects.FindIndex(project => project.Id == id);
+            var exstingProject = dbContext.Projects.Find(id);
+            if (exstingProject is null)
             {
                 return Results.NotFound();
             }
-            projects[index] = new ProjectSummaryDto(
-                id,
-                newUpdate.Name,
-                newUpdate.GenreId,
-                newUpdate.Price,
-                newUpdate.ReleaseDate
-                );
+            dbContext.Entry(exstingProject).CurrentValues
+            .SetValues(newUpdate.ToEntity(id));
+
+            dbContext.SaveChanges();
+            /*            
+                        projects[index] = new ProjectSummaryDto(
+                            id,
+                            newUpdate.Name,
+                            newUpdate.GenreId,
+                            newUpdate.Price,
+                            newUpdate.ReleaseDate
+                            );
+            */
+
             return Results.NoContent();
         });
         //Delete/group
-        var unused1 = group.MapDelete("/{id}", (int id) =>
+       group.MapDelete("/{id}", (int id, ProjectStortContext dbContext) =>
         {
+            dbContext.Projects
+               .Where(project => project.Id == id)
+               .ExecuteDelete();
             var unused = projects.RemoveAll(project => project.Id == id);
             return Results.NoContent();
 
