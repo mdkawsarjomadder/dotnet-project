@@ -10,10 +10,10 @@ POST http://localhost:5048/projects
 Content-Type: application/json
 
 {
-    "name": "Compuer Game.!",
+    "name": "only Game.!",
     "genreId": 3,
-    "price": 79.01,
-    "releaseDate": "1997-07-15"
+    "price": 99.01,
+    "releaseDate": "2001-07-15"
 }
 
 ###

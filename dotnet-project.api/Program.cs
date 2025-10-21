@@ -14,7 +14,8 @@ builder.Services.AddSqlite<ProjectStortContext>(ConnString);
 var app = builder.Build();
 
 app.MapProjectEndPoints();
-app.MigrateDb();
+app.MapGenresEndPoint();
+await app.MigrateDbAsync();
 
 app.Run();
     

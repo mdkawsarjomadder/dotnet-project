@@ -42,26 +42,27 @@ namespace dotnet_project.api.EndPoints;
    {
       var group = app.MapGroup("projects").WithParameterValidation();
         //GET/projects
-        group.MapGet("/", (ProjectStortContext dbContext) =>
-           dbContext.Projects
+        group.MapGet("/", async (ProjectStortContext dbContext) =>
+            await dbContext.Projects
            .Include(project => project.Genre)
            .Select(project => project.ToprojectSummaryDto())
-           .AsNoTracking());
+           .AsNoTracking()
+           .ToListAsync());
 
         //GET/group/1
-        group.MapGet("/{id}", (int id, ProjectStortContext dbContext) =>
+        group.MapGet("/{id}", async (int id, ProjectStortContext dbContext) =>
         {
             // ProjrctDto? project = projects.Find(project => project.Id == id);
-            Project? project = dbContext.Projects.Find(id);
+            Project? project = await dbContext.Projects.FindAsync(id);
             // Project? project = dbContext.Genres.Find(id);
 
             return project is null ? Results.NotFound() : Results.Ok(project.ToprojectDetailsDto());
         }).WithName(GetProjectEndPointName);
 
         //POST/group/
-        group.MapPost("/", (CretaeProjectDto newGame, ProjectStortContext dbContext) =>
+        group.MapPost("/", async (CretaeProjectDto newGame, ProjectStortContext dbContext) =>
         {
-            Project project = newGame.ToEntity();
+            Project project =  newGame.ToEntity();
             // project.Genre = dbContext.Genres.Find(newGame.GenreId);
 
             /*            Project ppject = new()
@@ -74,8 +75,8 @@ namespace dotnet_project.api.EndPoints;
                         };
             */
 
-            var unused4 = dbContext.Projects.Add(project);
-            var unused3 = dbContext.SaveChanges();
+             dbContext.Projects.Add(project);
+              await dbContext.SaveChangesAsync();
             /*  
                     ProjrctDto projrctDto = new(
                         ppject.Id,
@@ -92,10 +93,10 @@ namespace dotnet_project.api.EndPoints;
                 project.ToprojectDetailsDto());
         });
         //PUT/group/
-    group.MapPut("/{id}", (int id, UpdateCreateDto newUpdate, ProjectStortContext dbContext) =>
+    group.MapPut("/{id}", async (int id, UpdateCreateDto newUpdate, ProjectStortContext dbContext) =>
         {
             // var index = projects.FindIndex(project => project.Id == id);
-            var exstingProject = dbContext.Projects.Find(id);
+            var exstingProject = await dbContext.Projects.FindAsync(id);
             if (exstingProject is null)
             {
                 return Results.NotFound();
@@ -103,7 +104,7 @@ namespace dotnet_project.api.EndPoints;
             dbContext.Entry(exstingProject).CurrentValues
             .SetValues(newUpdate.ToEntity(id));
 
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
             /*            
                         projects[index] = new ProjectSummaryDto(
                             id,
@@ -117,11 +118,11 @@ namespace dotnet_project.api.EndPoints;
             return Results.NoContent();
         });
         //Delete/group
-       group.MapDelete("/{id}", (int id, ProjectStortContext dbContext) =>
+       group.MapDelete("/{id}", async (int id, ProjectStortContext dbContext) =>
         {
-            dbContext.Projects
+            await dbContext.Projects
                .Where(project => project.Id == id)
-               .ExecuteDelete();
+               .ExecuteDeleteAsync();
             var unused = projects.RemoveAll(project => project.Id == id);
             return Results.NoContent();
 
